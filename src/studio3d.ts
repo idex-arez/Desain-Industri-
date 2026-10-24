@@ -97,109 +97,113 @@ const FINISH_PRESETS: Record<string, {
 };
 
 export function initStudio3D() {
-  container = document.getElementById('three-canvas-container');
-  if (!container || isInitialized) return;
+  try {
+    container = document.getElementById('three-canvas-container');
+    if (!container || isInitialized) return;
 
-  const width = container.clientWidth || 800;
-  const height = container.clientHeight || 500;
+    const width = container.clientWidth || 800;
+    const height = container.clientHeight || 500;
 
-  // 1. Scene
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x050814);
-  scene.fog = new THREE.FogExp2(0x050814, 0.035);
+    // 1. Scene
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050814);
+    scene.fog = new THREE.FogExp2(0x050814, 0.035);
 
-  // 2. Camera
-  camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-  camera.position.set(6.5, 4.8, 6.5);
+    // 2. Camera
+    camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+    camera.position.set(6.5, 4.8, 6.5);
 
-  // 3. Renderer with ACES Filmic tone mapping
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.15;
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    // 3. Renderer with ACES Filmic tone mapping
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  container.innerHTML = '';
-  container.appendChild(renderer.domElement);
+    container.innerHTML = '';
+    container.appendChild(renderer.domElement);
 
-  // 4. Controls
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.maxPolarAngle = Math.PI / 2 + 0.05;
-  controls.minDistance = 2.5;
-  controls.maxDistance = 16;
-  controls.target.set(0, 0, 0);
+    // 4. Controls
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.maxPolarAngle = Math.PI / 2 + 0.05;
+    controls.minDistance = 2.5;
+    controls.maxDistance = 16;
+    controls.target.set(0, 0, 0);
 
-  // 5. Studio Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
-  scene.add(ambientLight);
+    // 5. Studio Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    scene.add(ambientLight);
 
-  const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
-  keyLight.position.set(8, 12, 8);
-  keyLight.castShadow = true;
-  keyLight.shadow.mapSize.width = 1024;
-  keyLight.shadow.mapSize.height = 1024;
-  keyLight.shadow.bias = -0.0001;
-  scene.add(keyLight);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    keyLight.position.set(8, 12, 8);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.width = 1024;
+    keyLight.shadow.mapSize.height = 1024;
+    keyLight.shadow.bias = -0.0001;
+    scene.add(keyLight);
 
-  const fillLight = new THREE.DirectionalLight(0x93c5fd, 1.2);
-  fillLight.position.set(-8, 6, -6);
-  scene.add(fillLight);
+    const fillLight = new THREE.DirectionalLight(0x93c5fd, 1.2);
+    fillLight.position.set(-8, 6, -6);
+    scene.add(fillLight);
 
-  const rimLight = new THREE.DirectionalLight(0x38bdf8, 1.4);
-  rimLight.position.set(0, -6, -8);
-  scene.add(rimLight);
+    const rimLight = new THREE.DirectionalLight(0x38bdf8, 1.4);
+    rimLight.position.set(0, -6, -8);
+    scene.add(rimLight);
 
-  // Floor Ground Contact Shadow Plane
-  const shadowPlaneGeo = new THREE.PlaneGeometry(16, 16);
-  const shadowPlaneMat = new THREE.ShadowMaterial({ opacity: 0.35 });
-  const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat);
-  shadowPlane.rotation.x = -Math.PI / 2;
-  shadowPlane.position.y = -1.5;
-  shadowPlane.receiveShadow = true;
-  scene.add(shadowPlane);
+    // Floor Ground Contact Shadow Plane
+    const shadowPlaneGeo = new THREE.PlaneGeometry(16, 16);
+    const shadowPlaneMat = new THREE.ShadowMaterial({ opacity: 0.35 });
+    const shadowPlane = new THREE.Mesh(shadowPlaneGeo, shadowPlaneMat);
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = -1.5;
+    shadowPlane.receiveShadow = true;
+    scene.add(shadowPlane);
 
-  // CAD Floor Grid
-  const gridHelper = new THREE.GridHelper(16, 32, 0x2563eb, 0x1e293b);
-  gridHelper.position.y = -1.5;
-  (gridHelper.material as THREE.Material).transparent = true;
-  (gridHelper.material as THREE.Material).opacity = 0.45;
-  scene.add(gridHelper);
+    // CAD Floor Grid
+    const gridHelper = new THREE.GridHelper(16, 32, 0x2563eb, 0x1e293b);
+    gridHelper.position.y = -1.5;
+    (gridHelper.material as THREE.Material).transparent = true;
+    (gridHelper.material as THREE.Material).opacity = 0.45;
+    scene.add(gridHelper);
 
-  // 6. Build the 4 Interactive CAD Models
-  models['horn-gear'] = buildHornGearModel();
-  models['iron'] = buildIronModel();
-  models['lamp'] = buildLampModel();
-  models['iot'] = buildIotModel();
+    // 6. Build the 4 Interactive CAD Models
+    models['horn-gear'] = buildHornGearModel();
+    models['iron'] = buildIronModel();
+    models['lamp'] = buildLampModel();
+    models['iot'] = buildIotModel();
 
-  // Add all model groups to scene, hide non-active
-  Object.keys(models).forEach(key => {
-    scene.add(models[key].group);
-    models[key].group.visible = (key === currentModelKey);
-  });
+    // Add all model groups to scene, hide non-active
+    Object.keys(models).forEach(key => {
+      scene.add(models[key].group);
+      models[key].group.visible = (key === currentModelKey);
+    });
 
-  clock = new THREE.Clock();
-  isInitialized = true;
+    clock = new THREE.Clock();
+    isInitialized = true;
 
-  // 7. Resize Observer
-  const resizeObserver = new ResizeObserver(() => {
-    if (!container) return;
-    const w = container.clientWidth;
-    const h = container.clientHeight;
-    if (w === 0 || h === 0) return;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
-  resizeObserver.observe(container);
+    // 7. Resize Observer
+    const resizeObserver = new ResizeObserver(() => {
+      if (!container || !renderer || !camera) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      if (w === 0 || h === 0) return;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    });
+    resizeObserver.observe(container);
 
-  // 8. Start Animation Loop
-  animate();
+    // 8. Start Animation Loop
+    animate();
 
-  updateTelemetryUI();
+    updateTelemetryUI();
+  } catch (err) {
+    console.warn('3D Studio WebGL initialization gracefully caught:', err);
+  }
 }
 
 // -------------------------------------------------------------

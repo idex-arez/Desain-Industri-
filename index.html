@@ -12,10 +12,10 @@
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/logo.svg">
 
-  <!-- Google Fonts: Plus Jakarta Sans for clean modern UI & Newsreader for editorial reading -->
+  <!-- Microsoft Segoe UI & Editorial Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -24,39 +24,166 @@
       theme: {
         extend: {
           colors: {
-            brandBlue: '#2563eb',
-            brandBlueDark: '#1d4ed8',
-            brandBlueLight: '#eff6ff',
-            brandNavy: '#0f172a',
+            msBlue: '#0067b8',
+            msBlueDark: '#005da6',
+            msBlueLight: '#e6f2fb',
+            msDark: '#262626',
+            msMuted: '#616161',
+            msBgLight: '#f2f2f2',
+            msBorder: '#e6e6e6',
+            brandBlue: '#0067b8',
+            brandBlueDark: '#005da6',
+            brandBlueLight: '#e6f2fb',
+            brandNavy: '#171717',
             brandGold: '#d97706',
-            brandSlate: '#475569',
-            bgCanvas: '#f8fafc',
-            cardBorder: '#e2e8f0'
+            brandSlate: '#505050',
+            bgCanvas: '#ffffff',
+            cardBorder: '#e5e5e5'
           },
           fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            sans: ['"Segoe UI"', '-apple-system', 'BlinkMacSystemFont', 'Roboto', '"Helvetica Neue"', 'sans-serif'],
             serif: ['"Newsreader"', 'Georgia', 'serif'],
-            mono: ['"IBM Plex Mono"', 'monospace']
+            mono: ['"IBM Plex Mono"', 'Consolas', 'monospace']
           }
         }
       }
     };
   </script>
 
+  <!-- Early Global Dispatch & Safe Stubs for 100% Clickability at 0ms Latency -->
+  <script>
+    window.switchTab = function(tabId) {
+      if (window._moduleLoaded && typeof window._realSwitchTab === 'function') {
+        window._realSwitchTab(tabId);
+        return;
+      }
+      var tabHyArez = document.getElementById('tab-hy-arez');
+      var tabDI = document.getElementById('tab-desain-industri');
+      var tabAM = document.getElementById('tab-additive-manufacturing');
+      var tabPort = document.getElementById('tab-portofolio');
+      var viewPost = document.getElementById('view-post');
+      if (tabHyArez) tabHyArez.classList.add('hidden');
+      if (tabDI) tabDI.classList.add('hidden');
+      if (tabAM) tabAM.classList.add('hidden');
+      if (tabPort) tabPort.classList.add('hidden');
+      if (viewPost) viewPost.classList.add('hidden');
+
+      var target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.remove('hidden');
+
+      document.querySelectorAll('.subnav-tab').forEach(function(b) { b.classList.remove('active'); });
+      var activeBtn = document.getElementById('subnav-' + tabId);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      window.location.hash = '#' + tabId;
+      if (window.renderHyArezFeatured && tabId === 'hy-arez') window.renderHyArezFeatured();
+      if (window.renderDesainIndustri && tabId === 'desain-industri') window.renderDesainIndustri();
+      if (window.renderAdditiveManufacturing && tabId === 'additive-manufacturing') window.renderAdditiveManufacturing();
+      if (window.renderPortfolio && tabId === 'portofolio') window.renderPortfolio('all');
+    };
+
+    window.showPost = function(id) {
+      if (window._realShowPost) window._realShowPost(id);
+      else window.location.hash = '#post-' + id;
+    };
+    window.returnToActiveFeed = function() {
+      if (window._realReturnToActiveFeed) window._realReturnToActiveFeed();
+      else window.switchTab('desain-industri');
+    };
+    window.filterDesainIndustri = function(cat, btn) {
+      if (window._realFilterDesainIndustri) window._realFilterDesainIndustri(cat, btn);
+    };
+    window.filterPortfolio = function(cat, btn) {
+      if (window._realFilterPortfolio) window._realFilterPortfolio(cat, btn);
+    };
+    window.openPortfolioModal = function(id) {
+      if (window._realOpenPortfolioModal) window._realOpenPortfolioModal(id);
+    };
+    window.closePortfolioModal = function() {
+      var m = document.getElementById('portfolio-modal');
+      if (m) m.classList.add('hidden');
+    };
+    window.openLoginModal = function() {
+      var m = document.getElementById('login-modal');
+      if (m) m.classList.remove('hidden');
+    };
+    window.closeLoginModal = function() {
+      var m = document.getElementById('login-modal');
+      if (m) m.classList.add('hidden');
+    };
+    window.handleWriteButtonClick = function() {
+      if (window._realHandleWriteButtonClick) window._realHandleWriteButtonClick();
+      else window.openLoginModal();
+    };
+    window.openArticleEditor = function(id) {
+      if (window._realOpenArticleEditor) window._realOpenArticleEditor(id);
+    };
+    window.closeArticleEditor = function() {
+      var m = document.getElementById('article-editor-modal');
+      if (m) m.classList.add('hidden');
+    };
+    window.openPortfolioEditor = function(id) {
+      if (window._realOpenPortfolioEditor) window._realOpenPortfolioEditor(id);
+    };
+    window.closePortfolioEditor = function() {
+      var m = document.getElementById('portfolio-editor-modal');
+      if (m) m.classList.add('hidden');
+    };
+    window.handleDeletePortfolio = function(id) {
+      if (window._realHandleDeletePortfolio) window._realHandleDeletePortfolio(id);
+    };
+    window.editCurrentPortfolioModal = function() {
+      if (window._realEditCurrentPortfolioModal) window._realEditCurrentPortfolioModal();
+    };
+    window.deleteCurrentPortfolioModal = function() {
+      if (window._realDeleteCurrentPortfolioModal) window._realDeleteCurrentPortfolioModal();
+    };
+    window.openConfirmDeleteModal = function(t, m, c) {
+      if (window._realOpenConfirmDeleteModal) window._realOpenConfirmDeleteModal(t, m, c);
+    };
+    window.closeConfirmDeleteModal = function() {
+      var m = document.getElementById('confirm-delete-modal');
+      if (m) m.classList.add('hidden');
+    };
+    window.handleSearch = function(q) {
+      if (window._realHandleSearch) window._realHandleSearch(q);
+    };
+    window.showToast = function(msg, icon) {
+      if (window._realShowToast) window._realShowToast(msg, icon);
+    };
+  </script>
+
   <style>
     body {
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      background-color: #f8fafc;
-      color: #1e293b;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+      background-color: #ffffff;
+      color: #262626;
       -webkit-font-smoothing: antialiased;
     }
     .font-serif-reading {
       font-family: 'Newsreader', Georgia, serif;
     }
+    .subnav-tab {
+      position: relative;
+      color: #262626;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .subnav-tab:hover {
+      color: #0067b8;
+    }
     .subnav-tab.active {
-      color: #2563eb;
-      font-weight: 700;
-      border-bottom: 2px solid #2563eb;
+      color: #0067b8;
+      font-weight: 600;
+    }
+    .subnav-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0.75rem;
+      right: 0.75rem;
+      height: 2px;
+      background-color: #0067b8;
     }
     .line-clamp-2 {
       display: -webkit-box;
@@ -75,96 +202,111 @@
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: #f1f5f9;
+      background: #f2f2f2;
     }
     ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 4px;
+      background: #c7c7c7;
+      border-radius: 3px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
+      background: #9e9e9e;
     }
   </style>
 </head>
-<body class="flex flex-col min-h-screen bg-slate-50 text-slate-800">
+<body class="flex flex-col min-h-screen bg-white text-[#262626]">
 
   <!-- ======================================================== -->
-  <!-- 1. TOP NAVBAR (Clean, Airy & Simple Header)              -->
+  <!-- 1. MICROSOFT SIGNATURE TOP NAVBAR                        -->
   <!-- ======================================================== -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+  <header class="sticky top-0 z-40 bg-white border-b border-[#e6e6e6]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
       
-      <!-- Brand & Title -->
-      <a href="#hy-arez" onclick="switchTab('hy-arez')" class="flex items-center gap-3 shrink-0 group focus:outline-none" title="Beranda Hy Arez — Arif Reza Basirun">
-        <div class="w-9 h-9 rounded-xl bg-brandBlue text-white font-extrabold text-sm flex items-center justify-center shadow-sm group-hover:bg-brandBlueDark transition-colors">
-          IDE
-        </div>
-        <div class="flex flex-col leading-tight">
-          <span class="font-bold text-sm text-slate-900 group-hover:text-brandBlue transition-colors flex items-center gap-1.5">
+      <!-- Left: Authentic IDE Indonesia Logo & Brand Title -->
+      <div class="flex items-center gap-6">
+        <a href="#hy-arez" onclick="switchTab('hy-arez')" class="flex items-center gap-2.5 shrink-0 group focus:outline-none" title="Beranda Hy Arez — Arif Reza Basirun (IDE Indonesia)">
+          <img
+            src="/logo.png"
+            alt="IDE Indonesia Logo"
+            class="w-7 h-7 sm:w-8 sm:h-8 object-contain shrink-0"
+            onerror="this.onerror=null; this.src='/logo-mark.svg';"
+          >
+          <span class="text-base sm:text-lg font-semibold tracking-tight text-[#262626] group-hover:text-[#0067b8] transition-colors flex items-center gap-2">
             Hy Arez
-            <span class="text-[11px] text-brandBlue font-medium hidden sm:inline">· Arif Reza Basirun</span>
+            <span class="text-xs text-[#616161] font-normal hidden md:inline border-l border-[#d2d2d2] pl-2">IDE Indonesia</span>
           </span>
-          <span class="text-[11px] text-slate-500 font-medium hidden sm:block">
-            Pemeriksa Desain Industri · DJKI Kementerian Hukum RI
-          </span>
-        </div>
-      </a>
+        </a>
 
-      <!-- Search Input -->
-      <div class="relative flex-1 max-w-xs hidden md:block">
-        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-        </div>
-        <input
-          type="text"
-          id="global-search-input"
-          oninput="handleSearch(this.value)"
-          placeholder="Cari artikel, 3D CAD, regulasi..."
-          class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-100/80 hover:bg-slate-100 focus:bg-white rounded-lg border border-slate-200 text-slate-800 placeholder-slate-400 focus:outline-none focus:border-brandBlue focus:ring-1 focus:ring-brandBlue transition-all"
-        >
+        <!-- Microsoft Clean Top Links (Desktop) -->
+        <nav class="hidden lg:flex items-center space-x-1 text-[13px] text-[#262626]">
+          <button type="button" onclick="switchTab('hy-arez')" class="px-2.5 py-1 hover:text-[#0067b8] hover:underline underline-offset-4 cursor-pointer">Hy Arez</button>
+          <button type="button" onclick="switchTab('desain-industri')" class="px-2.5 py-1 hover:text-[#0067b8] hover:underline underline-offset-4 cursor-pointer">Desain Industri</button>
+          <button type="button" onclick="switchTab('additive-manufacturing')" class="px-2.5 py-1 hover:text-[#0067b8] hover:underline underline-offset-4 cursor-pointer">Additive Manufacturing</button>
+          <button type="button" onclick="switchTab('portofolio')" class="px-2.5 py-1 hover:text-[#0067b8] hover:underline underline-offset-4 cursor-pointer">Portofolio &amp; 3D</button>
+        </nav>
       </div>
 
-      <!-- Right Action Items: Auth & Write -->
-      <div class="flex items-center gap-2.5 sm:gap-3 text-xs">
+      <!-- Right Action Strip: Search, Views, User & Write -->
+      <div class="flex items-center gap-3 sm:gap-4 text-[13px]">
         
-        <!-- Guest Login Trigger -->
+        <!-- Search Input with Sleek Microsoft Outline -->
+        <div class="relative max-w-[200px] sm:max-w-xs hidden sm:block">
+          <div class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-[#616161]">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+          <input
+            type="text"
+            id="global-search-input"
+            oninput="handleSearch(this.value)"
+            placeholder="Cari kajian, CAD, regulasi..."
+            class="w-full pl-8 pr-2.5 py-1 text-xs bg-white rounded-none border border-[#8a8a8a] text-[#262626] placeholder-[#616161] focus:outline-none focus:border-[#0067b8] focus:ring-1 focus:ring-[#0067b8] transition-all"
+          >
+        </div>
+
+        <!-- Real Views Count (Microsoft subtle metric) -->
+        <div class="hidden md:flex items-center gap-1.5 text-xs text-[#616161] border-l border-[#e6e6e6] pl-3">
+          <span>Tayangan:</span>
+          <strong id="global-real-views" class="font-semibold text-[#262626]">0</strong>
+        </div>
+
+        <!-- Microsoft Account / Writer Section -->
         <div id="auth-guest-section">
           <button
             type="button"
             onclick="openLoginModal()"
-            class="px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:border-brandBlue hover:text-brandBlue font-medium transition-colors inline-flex items-center gap-1.5 cursor-pointer"
+            class="px-2.5 py-1 text-xs text-[#262626] hover:text-[#0067b8] font-medium transition-colors inline-flex items-center gap-1.5 cursor-pointer"
             title="Masuk sebagai Penulis (Arez)"
           >
-            <svg class="w-3.5 h-3.5 text-brandBlue" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-            <span>Login Penulis</span>
+            <span class="w-6 h-6 rounded-full border border-[#8a8a8a] flex items-center justify-center text-[#616161]">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+            </span>
+            <span class="hidden sm:inline">Masuk</span>
           </button>
         </div>
 
-        <!-- Admin Session Status -->
         <div id="auth-admin-section" class="hidden flex items-center gap-2">
-          <span class="text-xs text-emerald-800 font-semibold bg-emerald-50 px-2 py-1 rounded-md border border-emerald-200 inline-flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span class="text-xs text-[#0e700e] font-semibold bg-[#eaf5ea] px-2 py-0.5 border border-[#c1e5c1] inline-flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#107c10]"></span>
             Arez (Penulis)
           </span>
           <button
             type="button"
             onclick="logoutAdmin()"
-            class="px-2 py-1 text-xs text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
+            class="text-xs text-[#616161] hover:text-[#c42b1c] transition-colors cursor-pointer hover:underline"
             title="Keluar dari sesi penulis"
           >
             Logout
           </button>
         </div>
 
-        <!-- Write Article Action Button -->
+        <!-- Microsoft Primary Button Style (+ Tulis Konten) -->
         <button
           type="button"
           onclick="handleWriteButtonClick()"
-          class="bg-brandBlue hover:bg-brandBlueDark text-white font-semibold px-3.5 py-1.5 rounded-lg shadow-sm transition-all hover:shadow inline-flex items-center gap-1.5 cursor-pointer text-xs"
+          class="bg-[#0067b8] hover:bg-[#005da6] active:bg-[#004e8c] text-white font-semibold px-3 py-1.5 text-xs transition-colors shadow-xs inline-flex items-center gap-1.5 cursor-pointer"
           title="Tambah Konten Baru"
         >
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"></path></svg>
-          <span>+ Tulis Konten</span>
+          <span>Tulis Konten</span>
         </button>
 
       </div>
@@ -172,34 +314,34 @@
   </header>
 
   <!-- ======================================================== -->
-  <!-- 2. SUB-NAV TABS (Simple & Clean Blogger Navigation)      -->
+  <!-- 2. MICROSOFT SECONDARY SUB-NAV BAR                       -->
   <!-- ======================================================== -->
-  <nav class="bg-white border-b border-slate-200 sticky top-16 z-30">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-start gap-1 sm:gap-6 overflow-x-auto text-xs sm:text-sm font-medium text-slate-600 no-scrollbar">
+  <nav class="bg-white border-b border-[#e6e6e6] sticky top-14 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-start gap-1 sm:gap-6 overflow-x-auto text-[13px] font-medium text-[#262626] no-scrollbar">
       
       <button
         type="button"
         id="subnav-hy-arez"
         onclick="switchTab('hy-arez')"
-        class="subnav-tab active px-3 sm:px-4 py-3 border-b-2 border-transparent hover:text-brandBlue transition-colors shrink-0 cursor-pointer"
+        class="subnav-tab active px-3 py-3 hover:text-[#0067b8] shrink-0 cursor-pointer"
       >
-        Hy Arez (Biodata)
+        Profil &amp; Rekam Jejak
       </button>
 
       <button
         type="button"
         id="subnav-desain-industri"
         onclick="switchTab('desain-industri')"
-        class="subnav-tab px-3 sm:px-4 py-3 border-b-2 border-transparent hover:text-brandBlue transition-colors shrink-0 cursor-pointer"
+        class="subnav-tab px-3 py-3 hover:text-[#0067b8] shrink-0 cursor-pointer"
       >
-        Desain Industri
+        Kajian Desain Industri
       </button>
 
       <button
         type="button"
         id="subnav-additive-manufacturing"
         onclick="switchTab('additive-manufacturing')"
-        class="subnav-tab px-3 sm:px-4 py-3 border-b-2 border-transparent hover:text-brandBlue transition-colors shrink-0 cursor-pointer"
+        class="subnav-tab px-3 py-3 hover:text-[#0067b8] shrink-0 cursor-pointer"
       >
         Additive Manufacturing
       </button>
@@ -208,156 +350,231 @@
         type="button"
         id="subnav-portofolio"
         onclick="switchTab('portofolio')"
-        class="subnav-tab px-3 sm:px-4 py-3 border-b-2 border-transparent hover:text-brandBlue transition-colors shrink-0 cursor-pointer"
+        class="subnav-tab px-3 py-3 hover:text-[#0067b8] shrink-0 cursor-pointer"
       >
-        Portofolio
+        Portofolio &amp; Studio 3D
       </button>
 
     </div>
   </nav>
 
   <!-- ======================================================== -->
-  <!-- 3. SIMPLE INTRO BANNER (Breathable, Not Piled Up)        -->
+  <!-- VIEW 1: HY AREZ (Biodata, Showcase Hero & Rekam Jejak)   -->
+  <!-- TAMPILAN INI HANYA MUNCUL DI MENU HY AREZ                -->
   <!-- ======================================================== -->
-  <section class="bg-white border-b border-slate-200/80 py-6 px-4">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div class="space-y-1">
-        <h1 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
-          IDE Indonesia — Catatan, Kajian &amp; Karya Arif Reza Basirun
+  <div id="tab-hy-arez" class="space-y-0">
+
+    <!-- 1a. MICROSOFT SHOWCASE HERO BANNER (Only on Hy Arez) -->
+    <section class="bg-[#f2f2f2] border-b border-[#e6e6e6] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <!-- Text Showcase Column -->
+      <div class="lg:col-span-7 space-y-4">
+        <div class="inline-block px-2.5 py-0.5 bg-[#e6f2fb] text-[#0067b8] font-semibold text-xs uppercase tracking-wider">
+          Direktorat Jenderal Kekayaan Intelektual · DJKI Kemenkumham RI
+        </div>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#262626] tracking-tight leading-tight">
+          Kajian Desain Industri &amp; Rekayasa Additive Manufacturing
         </h1>
-        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-2xl">
-          Eksplorasi kebaruan rupa desain industri, manufaktur aditif (3D printing), dan pemodelan CAD/CAM oleh Pemeriksa Desain Industri Ahli Pertama di DJKI Kementerian Hukum RI.
+        <p class="text-sm sm:text-base text-[#505050] leading-relaxed max-w-2xl">
+          Eksplorasi kepastian hukum 4 elemen yuridis UU No. 31 Tahun 2000, pendaftaran internasional Sistem Hague WIPO, optimasi cetak 3D printing FDM/SLA/SLS, serta inspeksi 3D CAD interaktif oleh Arif Reza Basirun.
         </p>
+
+        <!-- Microsoft Signature Dual CTAs -->
+        <div class="pt-2 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick="switchTab('portofolio')"
+            class="px-5 py-2.5 bg-[#0067b8] hover:bg-[#005da6] active:bg-[#004e8c] text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer inline-flex items-center gap-2"
+          >
+            <span>Jelajahi Portofolio &amp; Studio 3D</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+
+          <button
+            type="button"
+            onclick="switchTab('desain-industri')"
+            class="px-4 py-2.5 bg-transparent text-[#0067b8] hover:text-[#005da6] hover:underline font-semibold text-xs sm:text-sm cursor-pointer inline-flex items-center gap-1.5"
+          >
+            <span>Baca Kajian Kebaruan</span>
+            <span class="font-bold">&gt;</span>
+          </button>
+        </div>
       </div>
 
-      <!-- Real Views Stat Badge -->
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-mono text-slate-600 shrink-0 self-start sm:self-auto">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>Total Tayangan Riil:</span>
-        <strong id="global-real-views" class="font-bold text-brandBlue">0</strong>
-        <span>kali</span>
+      <!-- Hero Visual Column (Showcase Image / 3D Preview) -->
+      <div class="lg:col-span-5 relative flex items-center justify-center">
+        <div class="w-full bg-white border border-[#e6e6e6] p-4 shadow-sm hover:shadow-md transition-shadow">
+          <img
+            src="/slide_24.png"
+            alt="Showcase Mesin Kepang & CAD 3D"
+            class="w-full h-56 sm:h-64 object-contain bg-[#fafafa]"
+          >
+          <div class="pt-3 border-t border-[#f2f2f2] flex items-center justify-between text-xs text-[#616161]">
+            <span class="font-semibold text-[#262626]">Invensi Mesin Kepang Serat Sutra</span>
+            <span class="text-[#0067b8] font-semibold hover:underline cursor-pointer" onclick="switchTab('portofolio')">Buka 3D Model &gt;</span>
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 
   <!-- ======================================================== -->
-  <!-- 4. MAIN CONTENT CONTAINER (Spacious & Clean Layout)      -->
+  <!-- 3b. MICROSOFT 4-COLUMN QUICK ACTION ICONS STRIP          -->
   <!-- ======================================================== -->
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full">
-    
-    <!-- ============================================== -->
-    <!-- VIEW 1: HY AREZ (Biodata & Rekam Jejak)        -->
-    <!-- ============================================== -->
-    <section id="tab-hy-arez" class="space-y-8">
+  <section class="border-b border-[#e6e6e6] bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        
+        <!-- Action 1 -->
+        <div onclick="switchTab('desain-industri')" class="group cursor-pointer flex flex-col items-center text-center p-3 hover:bg-[#f8f8f8] transition-colors">
+          <div class="w-12 h-12 flex items-center justify-center text-[#0067b8] mb-2 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+          </div>
+          <h2 class="text-sm font-semibold text-[#262626] group-hover:text-[#0067b8] transition-colors">Pengujian Kebaruan</h2>
+          <p class="text-xs text-[#616161] mt-1 leading-normal">4 Elemen Yuridis UU 31/2000 &amp; Sistem Hague WIPO</p>
+          <span class="text-xs font-semibold text-[#0067b8] mt-2 group-hover:underline inline-flex items-center gap-0.5">Pelajari &gt;</span>
+        </div>
+
+        <!-- Action 2 -->
+        <div onclick="switchTab('additive-manufacturing')" class="group cursor-pointer flex flex-col items-center text-center p-3 hover:bg-[#f8f8f8] transition-colors">
+          <div class="w-12 h-12 flex items-center justify-center text-[#0067b8] mb-2 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          </div>
+          <h2 class="text-sm font-semibold text-[#262626] group-hover:text-[#0067b8] transition-colors">Additive Manufacturing</h2>
+          <p class="text-xs text-[#616161] mt-1 leading-normal">Riset FDM Taguchi, SLA &amp; Desain DFAM</p>
+          <span class="text-xs font-semibold text-[#0067b8] mt-2 group-hover:underline inline-flex items-center gap-0.5">Eksplorasi &gt;</span>
+        </div>
+
+        <!-- Action 3 -->
+        <div onclick="switchTab('portofolio')" class="group cursor-pointer flex flex-col items-center text-center p-3 hover:bg-[#f8f8f8] transition-colors">
+          <div class="w-12 h-12 flex items-center justify-center text-[#0067b8] mb-2 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+          </div>
+          <h2 class="text-sm font-semibold text-[#262626] group-hover:text-[#0067b8] transition-colors">Studio 3D Three.js</h2>
+          <p class="text-xs text-[#616161] mt-1 leading-normal">Inspeksi CAD 360°, Kinematika &amp; Exploded View</p>
+          <span class="text-xs font-semibold text-[#0067b8] mt-2 group-hover:underline inline-flex items-center gap-0.5">Buka Studio &gt;</span>
+        </div>
+
+        <!-- Action 4 -->
+        <div onclick="switchTab('hy-arez')" class="group cursor-pointer flex flex-col items-center text-center p-3 hover:bg-[#f8f8f8] transition-colors">
+          <div class="w-12 h-12 flex items-center justify-center text-[#0067b8] mb-2 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+          </div>
+          <h2 class="text-sm font-semibold text-[#262626] group-hover:text-[#0067b8] transition-colors">Hilirisasi &amp; Kum Dosen</h2>
+          <p class="text-xs text-[#616161] mt-1 leading-normal">Angka Kredit 15 Kum &amp; Layanan Cepat 4 Bulan DJKI</p>
+          <span class="text-xs font-semibold text-[#0067b8] mt-2 group-hover:underline inline-flex items-center gap-0.5">Lihat Panduan &gt;</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+    <!-- 1c. HY AREZ: PROFIL RESMI, 4 PILAR & PUBLIKASI UNGGULAN -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
       
-      <!-- Bio Summary Card -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-6">
-          <div class="flex items-center gap-4">
+      <!-- Bio Summary Card (Microsoft Corporate Profile Style) -->
+      <div class="bg-white border border-[#e6e6e6] p-6 sm:p-10 shadow-xs space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-b border-[#e6e6e6] pb-6">
+          <div class="flex items-center gap-5">
             <img
               src="/logo.png"
               alt="Arif Reza Basirun"
-              class="w-16 h-16 rounded-2xl border border-slate-200 p-1 bg-white shadow-xs object-contain"
+              class="w-20 h-20 border border-[#e6e6e6] p-1 bg-white object-contain shrink-0"
             >
             <div>
-              <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 rounded-md bg-brandBlueLight text-brandBlue font-mono text-[10px] font-bold uppercase">
-                  Biodata Resmi
-                </span>
-                <span class="text-xs text-slate-400 font-mono">Arif Reza Basirun (Arez)</span>
-              </div>
-              <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
-                Arif Reza Basirun
+              <span class="text-xs font-semibold text-[#0067b8] uppercase tracking-wider block">
+                Profil Resmi · Pemeriksa Desain Industri Ahli Pertama
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-semibold text-[#262626] mt-0.5">
+                Arif Reza Basirun (Arez)
               </h2>
-              <p class="text-xs sm:text-sm text-slate-500 font-medium">
-                Pemeriksa Desain Industri Ahli Pertama di Direktorat Jenderal Kekayaan Intelektual (DJKI) Kementerian Hukum RI
+              <p class="text-xs sm:text-sm text-[#616161] font-normal mt-0.5">
+                Direktorat Jenderal Kekayaan Intelektual (DJKI) Kementerian Hukum RI · Alumnus Magister Teknik Industri UGM
               </p>
             </div>
           </div>
 
           <a
             href="mailto:arif.reza.djki@gmail.com"
-            class="px-4 py-2 rounded-lg bg-slate-100 hover:bg-brandBlue hover:text-white text-slate-700 text-xs font-semibold transition-colors shrink-0 text-center inline-flex items-center justify-center gap-1.5"
+            class="px-4 py-2.5 bg-[#0067b8] hover:bg-[#005da6] active:bg-[#004e8c] text-white text-xs font-semibold transition-colors shrink-0 text-center inline-flex items-center justify-center gap-2"
           >
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             <span>Hubungi via Email</span>
           </a>
         </div>
 
-        <div class="space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <div class="space-y-4 text-xs sm:text-sm text-[#444444] leading-relaxed">
           <p>
-            Arif Reza Basirun (akrab disapa Arez) mengemban amanah fungsional sebagai <strong>Pemeriksa Desain Industri Ahli Pertama</strong> di Direktorat Jenderal Kekayaan Intelektual (DJKI) Kementerian Hukum RI. Dengan latar belakang pendidikan Magister Teknik Industri (S2) dari Universitas Gadjah Mada (UGM), ia berfokus pada integrasi kepastian hukum kekayaan intelektual dengan ranah rekayasa teknologi: <strong>Desain Produk Engineering</strong>, <strong>Additive Manufacturing (3D Printing)</strong>, dan <strong>CAD/CAM</strong>.
+            Arif Reza Basirun mengemban tugas fungsional sebagai <strong>Pemeriksa Desain Industri Ahli Pertama</strong> di Direktorat Jenderal Kekayaan Intelektual (DJKI) Kementerian Hukum RI. Dengan latar belakang pendidikan Magister Teknik Industri (S2) dari Universitas Gadjah Mada (UGM), ia berfokus pada integrasi kepastian hukum kekayaan intelektual dengan ranah rekayasa teknologi: <strong>Desain Produk Engineering</strong>, <strong>Additive Manufacturing (3D Printing)</strong>, dan <strong>CAD/CAM</strong>.
           </p>
           <p>
             Dalam tugas kesehariannya, Arez menguji substansi kebaruan desain industri berdasarkan 4 elemen yuridis pokok UU No. 31 Tahun 2000 (Bentuk 3D, Konfigurasi spasial, Komposisi Garis, dan Komposisi Warna), sekaligus memilah fitur utilitarian fungsional paten dari kreasi visual murni.
           </p>
         </div>
 
-        <!-- 4 Pillars of Competencies -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
-            <span class="text-xs font-bold text-brandBlue flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              Pemeriksaan Substantif Desain Industri
+        <!-- 4 Pillars of Competencies (Microsoft 4-Column Feature Tiles) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+          <div class="p-5 bg-[#fafafa] border border-[#e6e6e6] space-y-2">
+            <span class="text-xs font-semibold text-[#0067b8] block">
+              Pemeriksaan Substantif
             </span>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Pengujian kebaruan visual berdasarkan 4 elemen yuridis UU No. 31 Tahun 2000, pemilahan fungsi teknis paten, dan penerapan standar WIPO Hague System.
+            <p class="text-xs text-[#616161] leading-relaxed">
+              Pengujian kebaruan visual 4 elemen yuridis UU No. 31 Tahun 2000, pemilahan fungsi paten, dan penerapan standar WIPO Hague System.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
-            <span class="text-xs font-bold text-brandBlue flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-              Additive Manufacturing (3D Printing)
+          <div class="p-5 bg-[#fafafa] border border-[#e6e6e6] space-y-2">
+            <span class="text-xs font-semibold text-[#0067b8] block">
+              Additive Manufacturing
             </span>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Riset parameter cetak FDM/SLA/SLS, metode Taguchi pada transmisi horn gears mesin kepang UGM, dan validasi prototipe pra-cetakan injeksi massal.
+            <p class="text-xs text-[#616161] leading-relaxed">
+              Riset parameter cetak FDM/SLA/SLS, metode Taguchi transmisi horn gears mesin kepang UGM, dan validasi prototipe pra-injeksi massal.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
-            <span class="text-xs font-bold text-brandBlue flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-              CAD/CAM &amp; Surface Modeling
+          <div class="p-5 bg-[#fafafa] border border-[#e6e6e6] space-y-2">
+            <span class="text-xs font-semibold text-[#0067b8] block">
+              CAD/CAM &amp; Surface
             </span>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Pemodelan parametrik kontur kurvatur G2, analisis kinematika gear, serta pembuatan gambar ortogonal 7 tampak standar pemeriksaan formalitas.
+            <p class="text-xs text-[#616161] leading-relaxed">
+              Pemodelan parametrik kontur kurvatur G2, analisis kinematika gerak gear, serta standardisasi gambar 7 tampak ortogonal formalitas.
             </p>
           </div>
 
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
-            <span class="text-xs font-bold text-brandBlue flex items-center gap-1.5">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-              Hilirisasi Riset &amp; Angka Kredit Dosen
+          <div class="p-5 bg-[#fafafa] border border-[#e6e6e6] space-y-2">
+            <span class="text-xs font-semibold text-[#0067b8] block">
+              Hilirisasi &amp; Kum Dosen
             </span>
-            <p class="text-xs text-slate-500 leading-relaxed">
-              Pendampingan komersialisasi hasil riset kampus, angka kredit dosen 15 kum (Kepmendikbudristek 209/P/2024), serta percepatan layanan 4 bulan DJKI.
+            <p class="text-xs text-[#616161] leading-relaxed">
+              Pendampingan komersialisasi hasil riset, angka kredit dosen 15 kum (Kepmendikbudristek 209/P/2024), serta percepatan layanan 4 bulan DJKI.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- Rekam Jejak Terverifikasi dengan Link Sumber Langsung -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
-        <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
+      <!-- Rekam Jejak Terverifikasi (Microsoft Enterprise Directory Style) -->
+      <div class="bg-white border border-[#e6e6e6] p-6 sm:p-10 shadow-xs space-y-5">
+        <div class="border-b border-[#e6e6e6] pb-3 flex items-center justify-between">
           <div>
-            <h3 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
-              Rekam Jejak Akademik &amp; Invensi (Tautan Sumber Resmi)
+            <h3 class="text-lg sm:text-xl font-semibold text-[#262626] tracking-tight">
+              Rekam Jejak Akademik &amp; Invensi Terverifikasi
             </h3>
-            <p class="text-xs text-slate-500">Tautan langsung ke repositori institusi dan pangkalan data kekayaan intelektual.</p>
+            <p class="text-xs text-[#616161]">Tautan resmi ke pangkalan data kekayaan intelektual dan repositori institusi terakreditasi.</p>
           </div>
-          <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-mono font-semibold">
-            Terverifikasi
+          <span class="text-xs text-[#0e700e] bg-[#eaf5ea] px-2.5 py-1 border border-[#c1e5c1] font-semibold">
+            Terverifikasi Resmi
           </span>
         </div>
 
-        <div class="space-y-3 pt-1">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
           
           <!-- Track 1: S2 UGM Thesis -->
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div class="p-5 bg-white border border-[#e6e6e6] hover:border-[#0067b8] transition-colors flex flex-col justify-between gap-3 text-xs">
             <div class="space-y-1">
-              <span class="font-bold text-slate-900 text-sm block">Magister Teknik Industri (S2) — Universitas Gadjah Mada (UGM)</span>
-              <p class="text-slate-500">
+              <span class="font-semibold text-[#262626] text-sm block">Magister Teknik Industri (S2) — UGM</span>
+              <p class="text-[#616161] leading-relaxed">
                 Tesis: Optimasi parameter cetak FDM pada transmisi roda gigi tanduk (horn gears) prototipe mesin kepang serat sutra alami.
               </p>
             </div>
@@ -365,56 +582,56 @@
               href="https://etd.repository.ugm.ac.id"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-3.5 py-2 rounded-lg bg-brandBlue text-white hover:bg-brandBlueDark font-medium transition-colors shrink-0 text-center shadow-xs inline-flex items-center justify-center gap-1.5"
+              class="text-xs font-semibold text-[#0067b8] hover:underline inline-flex items-center gap-1 self-start"
             >
-              <span>Link Sumber (ETD UGM)</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              <span>Buka Dokumen ETD UGM</span>
+              <span>&gt;</span>
             </a>
           </div>
 
           <!-- Track 2: Invensi Mesin Kepang -->
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div class="p-5 bg-white border border-[#e6e6e6] hover:border-[#0067b8] transition-colors flex flex-col justify-between gap-3 text-xs">
             <div class="space-y-1">
-              <span class="font-bold text-slate-900 text-sm block">Invensi Terdaftar: Mesin Kepang Benang Mini Portabel</span>
-              <p class="text-slate-500">
-                Inventor: Arif Reza Basirun dkk. — Pendaftaran Hak Kekayaan Intelektual Terpadu UGM.
+              <span class="font-semibold text-[#262626] text-sm block">Invensi Terdaftar: Mesin Kepang Benang Mini</span>
+              <p class="text-[#616161] leading-relaxed">
+                Inventor: Arif Reza Basirun dkk. — Pendaftaran Hak Kekayaan Intelektual Terpadu Universitas Gadjah Mada.
               </p>
             </div>
             <a
               href="https://pdki-indonesia.dgip.go.id"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-3.5 py-2 rounded-lg bg-brandBlue text-white hover:bg-brandBlueDark font-medium transition-colors shrink-0 text-center shadow-xs inline-flex items-center justify-center gap-1.5"
+              class="text-xs font-semibold text-[#0067b8] hover:underline inline-flex items-center gap-1 self-start"
             >
-              <span>Link Sumber (PDKI DJKI)</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              <span>Lihat Data PDKI DJKI</span>
+              <span>&gt;</span>
             </a>
           </div>
 
           <!-- Track 3: Gusi Tiruan 3D -->
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div class="p-5 bg-white border border-[#e6e6e6] hover:border-[#0067b8] transition-colors flex flex-col justify-between gap-3 text-xs">
             <div class="space-y-1">
-              <span class="font-bold text-slate-900 text-sm block">Desain Industri: Proses Pembuatan Gusi Tiruan Teknologi 3D Printing</span>
-              <p class="text-slate-500">
-                Rancangan kontur gingiva estetik dental presisi berbasis resin medis biokompatibel.
+              <span class="font-semibold text-[#262626] text-sm block">Desain Industri: Proses Gusi Tiruan 3D Printing</span>
+              <p class="text-[#616161] leading-relaxed">
+                Rancangan kontur gingiva estetik dental presisi tinggi berbasis resin medis biokompatibel.
               </p>
             </div>
             <a
               href="https://pdki-indonesia.dgip.go.id"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-3.5 py-2 rounded-lg bg-brandBlue text-white hover:bg-brandBlueDark font-medium transition-colors shrink-0 text-center shadow-xs inline-flex items-center justify-center gap-1.5"
+              class="text-xs font-semibold text-[#0067b8] hover:underline inline-flex items-center gap-1 self-start"
             >
-              <span>Link Sumber (PDKI DJKI)</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              <span>Lihat Data Sertifikat</span>
+              <span>&gt;</span>
             </a>
           </div>
 
           <!-- Track 4: DJKI Kementerian Hukum RI -->
-          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div class="p-5 bg-white border border-[#e6e6e6] hover:border-[#0067b8] transition-colors flex flex-col justify-between gap-3 text-xs">
             <div class="space-y-1">
-              <span class="font-bold text-slate-900 text-sm block">Jabatan Fungsional: Pemeriksa Desain Industri Ahli Pertama</span>
-              <p class="text-slate-500">
+              <span class="font-semibold text-[#262626] text-sm block">Jabatan Fungsional: Pemeriksa Desain Industri</span>
+              <p class="text-[#616161] leading-relaxed">
                 Direktorat Hak Cipta dan Desain Industri, DJKI Kementerian Hukum RI.
               </p>
             </div>
@@ -422,91 +639,95 @@
               href="https://dgip.go.id"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-3.5 py-2 rounded-lg bg-brandBlue text-white hover:bg-brandBlueDark font-medium transition-colors shrink-0 text-center shadow-xs inline-flex items-center justify-center gap-1.5"
+              class="text-xs font-semibold text-[#0067b8] hover:underline inline-flex items-center gap-1 self-start"
             >
-              <span>Link Sumber (Portal DJKI)</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              <span>Portal Resmi DJKI</span>
+              <span>&gt;</span>
             </a>
           </div>
 
         </div>
       </div>
 
-      <!-- Featured Highlights in Hy Arez -->
+      <!-- Featured Highlights in Hy Arez (Microsoft 4-Column Showcase) -->
       <div class="space-y-4">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between border-b border-[#e6e6e6] pb-3">
           <div>
-            <h3 class="text-lg font-bold text-slate-900">Karya &amp; Publikasi Unggulan</h3>
-            <p class="text-xs text-slate-500">Tulisan pilihan seputar regulasi desain industri dan rekayasa aditif.</p>
+            <h3 class="text-xl font-semibold text-[#262626]">Karya &amp; Publikasi Unggulan</h3>
+            <p class="text-xs text-[#616161]">Kajian pilihan seputar regulasi desain industri, rekayasa aditif, dan pembuktian kebaruan.</p>
           </div>
-          <button type="button" onclick="switchTab('desain-industri')" class="text-xs text-brandBlue hover:underline font-semibold cursor-pointer">
-            Lihat Semua Artikel &rarr;
+          <button type="button" onclick="switchTab('desain-industri')" class="text-xs text-[#0067b8] hover:underline font-semibold cursor-pointer inline-flex items-center gap-1">
+            <span>Lihat semua kajian</span>
+            <span>&gt;</span>
           </button>
         </div>
         
-        <div id="hy-arez-featured-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <!-- Dynamically populated -->
+        <div id="hy-arez-featured-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Dynamically populated via renderArticleCard -->
         </div>
       </div>
 
-    </section>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 4. MAIN CONTENT CONTAINER (Halaman Lain Saat Menu Diklik) -->
+  <!-- ======================================================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
 
     <!-- ============================================== -->
     <!-- VIEW 2: DESAIN INDUSTRI FEED                   -->
     <!-- ============================================== -->
     <section id="tab-desain-industri" class="hidden space-y-6">
       
-      <!-- Rubrik Header -->
-      <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-2 shadow-sm">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-brandBlue text-white font-mono text-[10px] font-bold uppercase">
-            Rubrik Spesialis
-          </span>
-          <span class="text-xs text-slate-400 font-mono">DJKI Kementerian Hukum RI</span>
-        </div>
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+      <!-- Rubrik Header (Microsoft Enterprise Section Style) -->
+      <div class="bg-white border border-[#e6e6e6] p-6 sm:p-8 space-y-3 shadow-xs">
+        <span class="text-xs font-semibold text-[#0067b8] uppercase tracking-wider block">
+          Rubrik Spesialisasi · DJKI Kementerian Hukum RI
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-[#262626]">
           Kajian Desain Industri &amp; Pengujian Kebaruan Substantif
         </h2>
-        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+        <p class="text-xs sm:text-sm text-[#505050] leading-relaxed max-w-4xl">
           Kumpulan analisis rupa produk, pemilahan fungsi utilitarian paten vs estetika 4 elemen yuridis UU No. 31 Tahun 2000, teori formalisme Clive Bell, dekonstruksi GEON Biederman, prinsip MAYA Loewy, hingga percepatan layanan permohonan 4 bulan di DJKI.
         </p>
 
-        <!-- Category Pill Filters -->
-        <div class="pt-3 flex flex-wrap items-center gap-2 text-xs">
+        <!-- Category Filters in Microsoft Style -->
+        <div class="pt-2 flex flex-wrap items-center gap-2 text-xs">
           <button
             type="button"
             onclick="filterDesainIndustri('all', this)"
-            class="di-filter-btn px-3 py-1.5 rounded-lg bg-brandBlue text-white font-bold cursor-pointer"
+            class="di-filter-btn px-3 py-1.5 bg-[#0067b8] text-white font-semibold cursor-pointer"
           >
-            Semua (2)
+            Semua Kajian
           </button>
           <button
             type="button"
             onclick="filterDesainIndustri('regulasi', this)"
-            class="di-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            class="di-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer"
           >
             Regulasi &amp; Kebijakan
           </button>
           <button
             type="button"
             onclick="filterDesainIndustri('hukum', this)"
-            class="di-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            class="di-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer"
           >
             Hukum 4 Elemen
           </button>
           <button
             type="button"
             onclick="filterDesainIndustri('teori', this)"
-            class="di-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            class="di-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer"
           >
             Teori &amp; Persepsi Estetika
           </button>
         </div>
       </div>
 
-      <!-- Feed Grid -->
-      <div id="feed-desain-industri" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <!-- Dynamically populated -->
+      <!-- Feed Grid (Microsoft 4-Column Card Grid matching image.png) -->
+      <div id="feed-desain-industri" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Dynamically populated via renderArticleCard -->
       </div>
     </section>
 
@@ -514,67 +735,61 @@
     <!-- VIEW 3: ADDITIVE MANUFACTURING FEED            -->
     <!-- ============================================== -->
     <section id="tab-additive-manufacturing" class="hidden space-y-6">
-      <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-2 shadow-sm">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white font-mono text-[10px] font-bold uppercase">
-            3D Printing &amp; CAD/CAM
-          </span>
-          <span class="text-xs text-slate-400 font-mono">Riset UGM &amp; Industri</span>
-        </div>
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+      <div class="bg-white border border-[#e6e6e6] p-6 sm:p-8 space-y-3 shadow-xs">
+        <span class="text-xs font-semibold text-[#0067b8] uppercase tracking-wider block">
+          3D Printing &amp; CAD/CAM · Riset UGM &amp; Industri
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-[#262626]">
           Additive Manufacturing: Dari Layar CAD Menuju Cetak Massal
         </h2>
-        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+        <p class="text-xs sm:text-sm text-[#505050] leading-relaxed max-w-4xl">
           Penerapan 3D printing untuk akselerasi litbang desain produk, optimasi parameter FDM/SLA, riset transmisi horn gears mesin kepang sutra, panduan Design for Additive Manufacturing (DFAM), dan validasi ergonomi sebelum mold cetakan injeksi baja.
         </p>
       </div>
 
-      <!-- Feed Grid -->
-      <div id="feed-additive-manufacturing" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <!-- Dynamically populated -->
+      <!-- Feed Grid (Microsoft 4-Column Card Grid) -->
+      <div id="feed-additive-manufacturing" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Dynamically populated via renderArticleCard -->
       </div>
-    </section>
-
-    <!-- ============================================== -->
+    </section>    <!-- ============================================== -->
     <!-- VIEW 4: PORTOFOLIO (2D, 3D & Produk Jadi)      -->
     <!-- ============================================== -->
     <section id="tab-portofolio" class="hidden space-y-6">
-      <div class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 space-y-3 shadow-sm">
-        <div class="flex items-center justify-between flex-wrap gap-2">
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-mono text-[10px] font-bold uppercase">
-              Galeri Karya
-            </span>
-            <span class="text-xs text-slate-400 font-mono">Koleksi Desain 2D, 3D &amp; Prototipe Jadi</span>
-          </div>
+      
+      <!-- Portfolio Header (Microsoft Style) -->
+      <div class="bg-white border border-[#e6e6e6] p-6 sm:p-8 space-y-3 shadow-xs">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <span class="text-xs font-semibold text-[#0067b8] uppercase tracking-wider block">
+            Galeri Karya · Desain 2D, 3D CAD &amp; Prototipe Jadi
+          </span>
           <div class="flex items-center gap-2">
             <button
               type="button"
               onclick="openPortfolioEditor()"
               id="btn-add-portfolio"
-              class="px-3.5 py-1.5 rounded-lg bg-brandBlue hover:bg-brandBlueDark text-white font-semibold text-xs transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
+              class="px-3.5 py-1.5 bg-[#0067b8] hover:bg-[#005da6] active:bg-[#004e8c] text-white font-semibold text-xs transition-colors inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
               title="Tambah karya portofolio baru"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
               <span>Tambah Karya</span>
             </button>
-            <span class="text-xs font-mono text-slate-500 hidden sm:inline">Oleh Arif Reza Basirun</span>
+            <span class="text-xs text-[#616161] hidden sm:inline border-l border-[#e6e6e6] pl-2">Oleh Arif Reza Basirun</span>
           </div>
         </div>
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-900">
+        <h2 class="text-2xl sm:text-3xl font-semibold text-[#262626]">
           Portofolio Desain: 2D Brand Identity, CAD Modeling &amp; Produk Fisik
         </h2>
-        <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
-          Dokumentasi karya desain yang dirancang oleh Arez—mulai dari identitas visual 2D (logo IDE Indonesia), pemodelan CAD 3D parametrik (komponen mekanikal, horn gears, setrika ergonomis), hingga produk jadi hasil 3D print dan invensi terdaftar.
+        <p class="text-xs sm:text-sm text-[#505050] leading-relaxed max-w-4xl">
+          Dokumentasi karya rancangan Arez — mulai dari identitas visual 2D (logo IDE Indonesia), pemodelan CAD 3D parametrik (komponen mekanikal, horn gears, setrika ergonomis), hingga produk jadi hasil 3D print dan invensi terdaftar.
         </p>
 
-        <!-- Filter Buttons -->
+        <!-- Microsoft Filter Buttons -->
         <div class="pt-2 flex flex-wrap items-center gap-2 text-xs">
           <button
             type="button"
             id="port-filter-all"
             onclick="filterPortfolio('all', this)"
-            class="portfolio-filter-btn px-3 py-1.5 rounded-lg font-bold bg-brandBlue text-white shadow-xs cursor-pointer"
+            class="portfolio-filter-btn px-3 py-1.5 font-semibold bg-[#0067b8] text-white cursor-pointer"
           >
             Semua Karya (8)
           </button>
@@ -582,7 +797,7 @@
             type="button"
             id="port-filter-2d"
             onclick="filterPortfolio('2d', this)"
-            class="portfolio-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            class="portfolio-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer"
           >
             Desain 2D &amp; Logo (2)
           </button>
@@ -590,7 +805,7 @@
             type="button"
             id="port-filter-3d"
             onclick="filterPortfolio('3d', this)"
-            class="portfolio-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            class="portfolio-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer"
           >
             Desain 3D &amp; CAD Modeling (3)
           </button>
@@ -598,7 +813,7 @@
             type="button"
             id="port-filter-produk"
             onclick="filterPortfolio('produk', this)"
-            class="portfolio-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer"
+            class="portfolio-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer"
           >
             Produk Jadi &amp; 3D Print (3)
           </button>
@@ -724,26 +939,26 @@
         </div>
       </div>
 
-      <!-- Portfolio Grid -->
-      <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Dynamically populated -->
+      <!-- Portfolio Grid (Microsoft 4-Column Card Grid) -->
+      <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Dynamically populated via renderPortfolio -->
       </div>
     </section>
 
     <!-- ============================================== -->
-    <!-- VIEW 5: SINGLE POST VIEW (Blogger Reading Mode)-->
+    <!-- VIEW 5: SINGLE POST VIEW (Microsoft Editorial) -->
     <!-- ============================================== -->
-    <article id="view-post" class="hidden bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-8 max-w-3xl mx-auto">
+    <article id="view-post" class="hidden bg-white border border-[#e6e6e6] p-6 sm:p-12 shadow-xs space-y-8 max-w-4xl mx-auto">
       
       <!-- Back button & Breadcrumb -->
-      <nav class="flex items-center justify-between text-xs text-slate-500 border-b border-slate-100 pb-4">
+      <nav class="flex items-center justify-between text-xs text-[#616161] border-b border-[#e6e6e6] pb-4">
         <button
           type="button"
           onclick="returnToActiveFeed()"
-          class="inline-flex items-center gap-1.5 font-semibold text-brandBlue hover:text-brandBlueDark cursor-pointer"
+          class="inline-flex items-center gap-1.5 font-semibold text-[#0067b8] hover:underline cursor-pointer"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          <span>Kembali ke Daftar Tulisan</span>
+          <span>Kembali ke Daftar Kajian</span>
         </button>
 
         <!-- Admin Edit Button -->
@@ -751,7 +966,7 @@
           type="button"
           id="single-post-admin-edit"
           onclick="editCurrentArticle()"
-          class="hidden px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-semibold text-xs transition-colors inline-flex items-center gap-1 cursor-pointer shadow-xs"
+          class="hidden px-3 py-1.5 bg-[#d97706] hover:bg-[#b45309] text-white font-semibold text-xs transition-colors inline-flex items-center gap-1 cursor-pointer shadow-xs"
         >
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
           <span>Edit Artikel Ini</span>
@@ -760,44 +975,44 @@
 
       <!-- Post Header -->
       <header class="space-y-4">
-        <div class="flex flex-wrap items-center gap-2">
-          <span id="single-post-category-badge" class="px-2.5 py-0.5 rounded-full bg-brandBlue text-white text-[10px] font-bold uppercase font-mono">
+        <div class="flex flex-wrap items-center gap-3">
+          <span id="single-post-category-badge" class="px-2 py-0.5 bg-[#e6f2fb] text-[#0067b8] text-xs font-semibold uppercase tracking-wider">
             Regulasi
           </span>
-          <span id="single-post-readtime-badge" class="text-xs text-slate-400 font-mono">
+          <span id="single-post-readtime-badge" class="text-xs text-[#616161]">
             Waktu Baca: 7 Menit
           </span>
         </div>
 
-        <h1 id="single-post-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 tracking-tight leading-tight">
+        <h1 id="single-post-title" class="text-2xl sm:text-3xl lg:text-4xl font-semibold text-[#262626] tracking-tight leading-tight">
           <!-- Title -->
         </h1>
 
-        <div class="flex flex-wrap items-center gap-3 text-xs text-slate-500 pt-2 border-t border-slate-100">
-          <span>Oleh <strong class="text-slate-900">Arif Reza Basirun (Arez)</strong></span>
+        <div class="flex flex-wrap items-center gap-3 text-xs text-[#616161] pt-3 border-t border-[#e6e6e6]">
+          <span>Oleh <strong class="text-[#262626]">Arif Reza Basirun (Arez)</strong></span>
           <span>&middot;</span>
           <span id="single-post-date">20 Oktober 2026</span>
           <span>&middot;</span>
-          <span class="font-mono text-slate-700 flex items-center gap-1">
-            <svg class="w-3.5 h-3.5 text-brandBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-            <span id="single-post-views">0</span> tayangan riil
+          <span class="text-[#262626] flex items-center gap-1 font-semibold">
+            <svg class="w-3.5 h-3.5 text-[#0067b8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+            <span id="single-post-views">0</span> tayangan
           </span>
         </div>
       </header>
 
       <!-- Lead Quote -->
-      <div id="single-post-lead" class="text-base sm:text-lg italic text-slate-700 border-l-4 border-brandBlue pl-4 py-1 font-serif-reading leading-relaxed bg-brandBlueLight/30 rounded-r-lg">
+      <div id="single-post-lead" class="text-base sm:text-lg italic text-[#262626] border-l-4 border-[#0067b8] pl-4 py-2 font-serif-reading leading-relaxed bg-[#f8f8f8]">
         <!-- Lead -->
       </div>
 
-      <!-- Body Content (HTML) - Clean Blogger prose with no raw PDF preview iframe -->
-      <div id="single-post-body" class="space-y-6 text-sm sm:text-base leading-relaxed text-slate-800 font-sans">
+      <!-- Body Content (HTML) -->
+      <div id="single-post-body" class="space-y-6 text-sm sm:text-base leading-relaxed text-[#262626] font-sans">
         <!-- Full prose & charts -->
       </div>
 
       <!-- Labels -->
-      <div class="pt-6 border-t border-slate-100 flex flex-wrap items-center gap-2 text-xs">
-        <span class="font-bold text-slate-700">Topik / Label:</span>
+      <div class="pt-6 border-t border-[#e6e6e6] flex flex-wrap items-center gap-2 text-xs">
+        <span class="font-semibold text-[#262626]">Topik Terkait:</span>
         <div id="single-post-labels" class="flex flex-wrap items-center gap-1.5">
           <!-- Labels -->
         </div>
@@ -1540,40 +1755,73 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 10. CLEAN FOOTER                                         -->
+  <!-- 10. MICROSOFT CORPORATE FOOTER                           -->
   <!-- ======================================================== -->
-  <footer class="mt-auto border-t border-slate-200 bg-white text-slate-500 text-xs">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-brandBlue text-white font-bold text-xs flex items-center justify-center">
-            IDE
-          </div>
-          <div>
-            <span class="font-bold text-sm text-slate-900 block">Hy Arez — Arif Reza Basirun</span>
-            <span class="text-[11px] text-slate-500">Pemeriksa Desain Industri Ahli Pertama (DJKI Kementerian Hukum RI)</span>
-          </div>
+  <footer class="mt-auto bg-[#f2f2f2] border-t border-[#e6e6e6] text-xs text-[#616161]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 space-y-8">
+      
+      <!-- Multi-Column Microsoft Corporate Directory Links -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        
+        <div class="space-y-3">
+          <h4 class="font-semibold text-xs text-[#262626]">Desain Industri &amp; Regulasi</h4>
+          <ul class="space-y-2 text-xs">
+            <li><button type="button" onclick="switchTab('desain-industri')" class="hover:underline text-left cursor-pointer">4 Elemen Yuridis UU 31/2000</button></li>
+            <li><button type="button" onclick="switchTab('desain-industri')" class="hover:underline text-left cursor-pointer">Sistem Hague WIPO</button></li>
+            <li><button type="button" onclick="switchTab('desain-industri')" class="hover:underline text-left cursor-pointer">Layanan Cepat 4 Bulan DJKI</button></li>
+            <li><button type="button" onclick="switchTab('desain-industri')" class="hover:underline text-left cursor-pointer">Teori Formalisme &amp; GEON</button></li>
+          </ul>
         </div>
 
-        <div class="flex flex-wrap items-center gap-4 text-xs font-medium">
-          <button type="button" onclick="switchTab('hy-arez')" class="hover:text-brandBlue cursor-pointer">Hy Arez</button>
-          <button type="button" onclick="switchTab('desain-industri')" class="hover:text-brandBlue cursor-pointer">Desain Industri</button>
-          <button type="button" onclick="switchTab('additive-manufacturing')" class="hover:text-brandBlue cursor-pointer">Additive Manufacturing</button>
-          <button type="button" onclick="switchTab('portofolio')" class="hover:text-brandBlue cursor-pointer">Portofolio</button>
-          <a href="mailto:arif.reza.djki@gmail.com" class="text-brandBlue font-semibold hover:underline">Kontak Email</a>
+        <div class="space-y-3">
+          <h4 class="font-semibold text-xs text-[#262626]">Additive Manufacturing &amp; CAD</h4>
+          <ul class="space-y-2 text-xs">
+            <li><button type="button" onclick="switchTab('additive-manufacturing')" class="hover:underline text-left cursor-pointer">Optimasi Cetak FDM &amp; Taguchi</button></li>
+            <li><button type="button" onclick="switchTab('additive-manufacturing')" class="hover:underline text-left cursor-pointer">Design for Additive (DFAM)</button></li>
+            <li><button type="button" onclick="switchTab('portofolio')" class="hover:underline text-left cursor-pointer">Studio 3D Three.js WebGL</button></li>
+            <li><button type="button" onclick="switchTab('additive-manufacturing')" class="hover:underline text-left cursor-pointer">Titik Impas Injeksi Massal</button></li>
+          </ul>
         </div>
+
+        <div class="space-y-3">
+          <h4 class="font-semibold text-xs text-[#262626]">Riset &amp; Institusi Resmi</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="https://etd.repository.ugm.ac.id" target="_blank" rel="noopener noreferrer" class="hover:underline">Repositori ETD UGM</a></li>
+            <li><a href="https://pdki-indonesia.dgip.go.id" target="_blank" rel="noopener noreferrer" class="hover:underline">Pangkalan Data KI (PDKI)</a></li>
+            <li><a href="https://dgip.go.id" target="_blank" rel="noopener noreferrer" class="hover:underline">Direktorat Jenderal KI (DJKI)</a></li>
+            <li><button type="button" onclick="switchTab('hy-arez')" class="hover:underline text-left cursor-pointer">Angka Kredit Dosen 15 Kum</button></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="font-semibold text-xs text-[#262626]">Tentang &amp; Akun</h4>
+          <ul class="space-y-2 text-xs">
+            <li><button type="button" onclick="switchTab('hy-arez')" class="hover:underline text-left cursor-pointer">Profil Arif Reza Basirun (Arez)</button></li>
+            <li><button type="button" onclick="switchTab('portofolio')" class="hover:underline text-left cursor-pointer">Portofolio Karya Lengkap</button></li>
+            <li><a href="mailto:arif.reza.djki@gmail.com" class="hover:underline">Kontak Resmi Penulis</a></li>
+            <li><button type="button" onclick="openLoginModal()" class="hover:underline text-left text-[#0067b8] font-semibold cursor-pointer">Masuk Akun Penulis Arez</button></li>
+          </ul>
+        </div>
+
       </div>
 
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-slate-400">
-        <div>
-          &copy; 2026 IDE Indonesia — Arif Reza Basirun (arif.reza.djki@gmail.com). Hak cipta dilindungi undang-undang.
-        </div>
+      <!-- Bottom Microsoft Locale & Legal Bar -->
+      <div class="pt-6 border-t border-[#d2d2d2] flex flex-col md:flex-row md:items-center justify-between gap-4 text-[11px]">
         <div class="flex items-center gap-2">
-          <span>Tema Blogger Minimalis &amp; Breathable</span>
-          <span>&middot;</span>
-          <button type="button" onclick="openLoginModal()" class="hover:text-brandBlue cursor-pointer">Akses Penulis Arez</button>
+          <button type="button" class="hover:underline flex items-center gap-1.5 cursor-pointer font-medium text-[#262626]">
+            <span>🌐</span>
+            <span>Indonesia (Bahasa Indonesia)</span>
+          </button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[#616161]">
+          <span>© 2026 IDE Indonesia — Arif Reza Basirun. Hak Cipta Dilindungi Undang-Undang.</span>
+          <button type="button" onclick="switchTab('hy-arez')" class="hover:underline cursor-pointer">Privasi &amp; Legalitas</button>
+          <button type="button" onclick="switchTab('desain-industri')" class="hover:underline cursor-pointer">Ketentuan Kebaruan</button>
+          <button type="button" onclick="openLoginModal()" class="hover:underline text-[#0067b8] cursor-pointer">Akses Penulis</button>
         </div>
       </div>
+
     </div>
   </footer>
 
@@ -1595,6 +1843,74 @@
       deletePortfolioFromFirestore
     } from './src/firebase.ts';
     import { initStudio3D, onPortfolioTabOpened } from './src/studio3d.ts';
+
+    // Mark module loaded and immediately expose all functions to window
+    window._moduleLoaded = true;
+    window._realSwitchTab = switchTab;
+    window.switchTab = switchTab;
+    window._realShowPost = showPost;
+    window.showPost = showPost;
+    window._realReturnToActiveFeed = returnToActiveFeed;
+    window.returnToActiveFeed = returnToActiveFeed;
+    window._realFilterDesainIndustri = filterDesainIndustri;
+    window.filterDesainIndustri = filterDesainIndustri;
+    window._realFilterPortfolio = filterPortfolio;
+    window.filterPortfolio = filterPortfolio;
+    window._realOpenPortfolioModal = openPortfolioModal;
+    window.openPortfolioModal = openPortfolioModal;
+    window.closePortfolioModal = closePortfolioModal;
+    window.openLoginModal = openLoginModal;
+    window.closeLoginModal = closeLoginModal;
+    window.handleLoginSubmit = handleLoginSubmit;
+    window.quickLoginDemo = quickLoginDemo;
+    window.logoutAdmin = logoutAdmin;
+    window._realHandleWriteButtonClick = handleWriteButtonClick;
+    window.handleWriteButtonClick = handleWriteButtonClick;
+    window._realOpenArticleEditor = openArticleEditor;
+    window.openArticleEditor = openArticleEditor;
+    window.closeArticleEditor = closeArticleEditor;
+    window.handleSaveArticle = handleSaveArticle;
+    window.handleDeleteArticle = handleDeleteArticle;
+    window.editCurrentArticle = editCurrentArticle;
+    window._realOpenPortfolioEditor = openPortfolioEditor;
+    window.openPortfolioEditor = openPortfolioEditor;
+    window.closePortfolioEditor = closePortfolioEditor;
+    window.handleSavePortfolio = handleSavePortfolio;
+    window._realHandleDeletePortfolio = handleDeletePortfolio;
+    window.handleDeletePortfolio = handleDeletePortfolio;
+    window._realEditCurrentPortfolioModal = editCurrentPortfolioModal;
+    window.editCurrentPortfolioModal = editCurrentPortfolioModal;
+    window._realDeleteCurrentPortfolioModal = deleteCurrentPortfolioModal;
+    window.deleteCurrentPortfolioModal = deleteCurrentPortfolioModal;
+    window._realOpenConfirmDeleteModal = openConfirmDeleteModal;
+    window.openConfirmDeleteModal = openConfirmDeleteModal;
+    window.closeConfirmDeleteModal = closeConfirmDeleteModal;
+    window._realShowToast = showToast;
+    window.showToast = showToast;
+    window._realHandleSearch = handleSearch;
+    window.handleSearch = handleSearch;
+    window.renderDesainIndustri = renderDesainIndustri;
+    window.renderAdditiveManufacturing = renderAdditiveManufacturing;
+    window.renderHyArezFeatured = renderHyArezFeatured;
+    window.renderPortfolio = renderPortfolio;
+    window.toggleEditorPreviewTab = toggleEditorPreviewTab;
+    window.insertFormat = insertFormat;
+    window.removeThumbnailImage = removeThumbnailImage;
+    window.handleThumbnailFile = handleThumbnailFile;
+    window.updateThumbPreview = updateThumbPreview;
+    window.openDataChartModal = openDataChartModal;
+    window.closeDataChartModal = closeDataChartModal;
+    window.addChartRow = addChartRow;
+    window.generateAndInsertChart = generateAndInsertChart;
+    window.openInlineImageModal = openInlineImageModal;
+    window.closeInlineImageModal = closeInlineImageModal;
+    window.handleInlineImageFile = handleInlineImageFile;
+    window.insertInlineImageToBody = insertInlineImageToBody;
+    window.handleCommentSubmit = handleCommentSubmit;
+    window.deleteComment = deleteComment;
+    window.updatePortThumbPreview = updatePortThumbPreview;
+    window.selectPresetPortfolioThumbnail = selectPresetPortfolioThumbnail;
+    window.handleThumbnailPortfolioFile = handleThumbnailPortfolioFile;
 
     // --- 1. DEFAULT ARTICLES DATABASE (Fallback & Initial Seed) ---
     const DEFAULT_ARTICLES = {
@@ -3507,16 +3823,17 @@
       }
     }
 
-    // --- 8. CARD RENDERER ---
+    // --- 8. CARD RENDERER (Microsoft Signature Product Card Style matching image.png) ---
     function renderArticleCard(a) {
+      if (!a) return '';
       const isAuth = isAdminLoggedIn();
       const views = getPostRealViews(a.id);
 
       return `
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col group">
+        <div class="bg-white border border-[#e6e6e6] rounded-2xl p-6 hover:border-[#0067b8] hover:shadow-lg transition-all duration-200 flex flex-col justify-between group relative">
           
-          <!-- Image Banner -->
-          <div class="relative overflow-hidden aspect-[16/9] bg-slate-100 flex items-center justify-center cursor-pointer" onclick="showPost('${a.id}')">
+          <!-- Image Banner (Rounded Top Container like image.png) -->
+          <div class="relative overflow-hidden aspect-[16/10] bg-[#f8f8f8] rounded-xl mb-4 flex items-center justify-center cursor-pointer" onclick="showPost('${a.id}')">
             <img
               src="${a.thumbnail || '/slide_08.png'}"
               alt="${escapeHtml(a.title)}"
@@ -3524,15 +3841,12 @@
               loading="lazy"
               onerror="this.onerror=null; this.src='/slide_08.png';"
             >
-            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-xs text-white font-mono text-[10px] font-bold uppercase shadow-xs">
-              ${escapeHtml(a.category || 'Kajian')}
-            </span>
 
             ${isAuth ? `
               <button
                 type="button"
                 onclick="event.stopPropagation(); openArticleEditor('${a.id}');"
-                class="absolute top-3 right-3 px-2 py-1 rounded bg-amber-500 hover:bg-amber-600 text-white text-[11px] font-semibold shadow-xs flex items-center gap-1 cursor-pointer"
+                class="absolute top-2.5 right-2.5 px-2.5 py-1 bg-[#d97706] hover:bg-[#b45309] text-white text-[11px] font-semibold rounded-sm shadow-xs flex items-center gap-1 cursor-pointer z-10"
                 title="Edit artikel ini"
               >
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -3542,40 +3856,37 @@
           </div>
 
           <!-- Card Content -->
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+          <div class="flex-1 flex flex-col justify-between space-y-4">
             <div>
-              <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono mb-1.5">
+              <div class="flex items-center justify-between text-[11px] text-[#616161] mb-1.5">
+                <span class="text-[#0067b8] font-semibold uppercase tracking-wider text-[10px]">${escapeHtml(a.category || 'Kajian')}</span>
                 <span>${escapeHtml(a.date)}</span>
-                <span class="flex items-center gap-1 text-slate-500">
-                  <svg class="w-3 h-3 text-brandBlue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                  ${views} tayangan
-                </span>
               </div>
 
               <h3
                 onclick="showPost('${a.id}')"
-                class="font-bold text-base text-slate-900 group-hover:text-brandBlue transition-colors leading-snug cursor-pointer"
+                class="font-semibold text-lg text-[#262626] group-hover:text-[#0067b8] transition-colors leading-snug cursor-pointer mb-2"
               >
                 ${escapeHtml(a.title)}
               </h3>
 
-              <p class="text-xs text-slate-500 line-clamp-3 mt-2 leading-relaxed">
+              <p class="text-xs sm:text-sm text-[#505050] line-clamp-3 leading-relaxed">
                 ${escapeHtml(a.excerpt || a.lead || '')}
               </p>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-              <span class="text-slate-400 font-mono text-[11px]">
-                ${escapeHtml(a.readTime || '7 Menit')}
-              </span>
+            <!-- Microsoft Signature Solid Blue Action Button (like Pelajari selengkapnya in image.png) -->
+            <div class="pt-4 border-t border-[#f2f2f2] flex items-center justify-between gap-2">
               <button
                 type="button"
                 onclick="showPost('${a.id}')"
-                class="font-semibold text-brandBlue hover:text-brandBlueDark inline-flex items-center gap-1 cursor-pointer"
+                class="px-4 py-2 bg-[#0067b8] hover:bg-[#005da6] active:bg-[#004e8c] text-white font-semibold text-xs sm:text-sm rounded-sm inline-flex items-center gap-1 cursor-pointer transition-colors shadow-xs"
               >
-                <span>Baca Selengkapnya</span>
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                <span>Pelajari selengkapnya</span>
               </button>
+              <span class="text-[#616161] text-[11px] truncate">
+                ${escapeHtml(a.readTime || '7 Menit')} &middot; ${views} tayangan
+              </span>
             </div>
 
           </div>
@@ -3620,10 +3931,10 @@
 
     function filterDesainIndustri(category, btn) {
       document.querySelectorAll('.di-filter-btn').forEach(b => {
-        b.className = 'di-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer';
+        b.className = 'di-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer';
       });
       if (btn) {
-        btn.className = 'di-filter-btn px-3 py-1.5 rounded-lg font-bold bg-brandBlue text-white shadow-xs cursor-pointer';
+        btn.className = 'di-filter-btn px-3 py-1.5 bg-[#0067b8] text-white font-semibold cursor-pointer';
       }
       renderDesainIndustri(category);
     }
@@ -3854,9 +4165,9 @@
         return;
       }
 
-      container.innerHTML = list.map(p => `
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md hover:border-slate-300 transition-all flex flex-col group relative">
-          <div class="relative overflow-hidden aspect-[16/10] bg-slate-50 flex items-center justify-center p-3 cursor-pointer" onclick="openPortfolioModal('${p.id}')">
+      container.innerHTML = list.filter(Boolean).map(p => `
+        <div class="bg-white border border-[#e6e6e6] rounded-2xl p-5 hover:border-[#0067b8] hover:shadow-lg transition-all duration-200 flex flex-col justify-between group relative">
+          <div class="relative overflow-hidden aspect-[16/10] bg-[#f8f8f8] rounded-xl p-3 mb-4 flex items-center justify-center cursor-pointer" onclick="openPortfolioModal('${p.id}')">
             <img
               src="${p.thumbnail}"
               alt="${escapeHtml(p.title)}"
@@ -3864,16 +4175,13 @@
               loading="lazy"
               onerror="this.onerror=null; this.src='/slide_24.png';"
             >
-            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-mono text-[10px] font-bold uppercase shadow-xs">
-              ${escapeHtml(p.categoryLabel || p.category)}
-            </span>
 
             ${isAuth ? `
-              <div class="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+              <div class="absolute top-2.5 right-2.5 flex items-center gap-1 z-10">
                 <button
                   type="button"
                   onclick="event.stopPropagation(); openPortfolioEditor('${p.id}');"
-                  class="px-2 py-1 rounded bg-amber-500 hover:bg-amber-600 text-white text-[11px] font-semibold shadow-xs flex items-center gap-1 cursor-pointer"
+                  class="px-2 py-0.5 bg-[#d97706] hover:bg-[#b45309] text-white text-[11px] font-semibold rounded-sm shadow-xs flex items-center gap-1 cursor-pointer"
                   title="Edit karya ini"
                 >
                   <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
@@ -3882,7 +4190,7 @@
                 <button
                   type="button"
                   onclick="event.stopPropagation(); handleDeletePortfolio('${p.id}');"
-                  class="p-1 rounded bg-rose-600 hover:bg-rose-700 text-white text-[11px] font-semibold shadow-xs flex items-center justify-center cursor-pointer"
+                  class="p-1 bg-[#c42b1c] hover:bg-[#a82315] text-white text-[11px] font-semibold rounded-sm shadow-xs flex items-center justify-center cursor-pointer"
                   title="Hapus karya ini"
                 >
                   <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -3891,42 +4199,39 @@
             ` : ''}
           </div>
 
-          <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+          <div class="flex-1 flex flex-col justify-between space-y-3">
             <div>
-              <div class="flex items-center justify-between text-[11px] text-slate-400 font-mono mb-1">
+              <div class="flex items-center justify-between text-[11px] text-[#616161] mb-1.5">
+                <span class="text-[#0067b8] font-semibold uppercase tracking-wider text-[10px]">${escapeHtml(p.categoryLabel || p.category)}</span>
                 <span>${escapeHtml(p.year)}</span>
-                <span class="text-brandBlue font-semibold truncate max-w-[140px]">${escapeHtml(p.software)}</span>
               </div>
-              <h3 onclick="openPortfolioModal('${p.id}')" class="font-bold text-base text-slate-900 group-hover:text-brandBlue transition-colors leading-snug cursor-pointer">
+              <h3 onclick="openPortfolioModal('${p.id}')" class="font-semibold text-lg text-[#262626] group-hover:text-[#0067b8] transition-colors leading-snug cursor-pointer mb-2">
                 ${escapeHtml(p.title)}
               </h3>
-              <p class="text-xs text-slate-500 line-clamp-2 mt-1 leading-relaxed">
+              <p class="text-xs sm:text-sm text-[#505050] line-clamp-2 leading-relaxed mb-4">
                 ${escapeHtml(p.description)}
               </p>
             </div>
 
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-              <span class="text-[11px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded truncate max-w-[160px]">
-                ${escapeHtml((p.status || '').split('·')[0] || p.status || 'Karya')}
-              </span>
+            <div class="pt-3 border-t border-[#f2f2f2] flex items-center justify-between gap-2">
+              <button
+                type="button"
+                onclick="openPortfolioModal('${p.id}')"
+                class="px-3.5 py-1.5 bg-[#0067b8] hover:bg-[#005da6] active:bg-[#004e8c] text-white font-semibold text-xs rounded-sm inline-flex items-center gap-1 cursor-pointer transition-colors shadow-xs"
+              >
+                <span>Pelajari selengkapnya</span>
+              </button>
               <div class="flex items-center gap-1.5 shrink-0">
                 ${p.modelKey ? `
                   <button
                     type="button"
                     onclick="event.stopPropagation(); window.loadModelInStudio('${p.modelKey}')"
-                    class="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-brandBlue text-brandBlue hover:text-white font-semibold text-xs transition-colors inline-flex items-center gap-1 cursor-pointer shadow-xs"
+                    class="px-2 py-1 bg-[#e6f2fb] hover:bg-[#0067b8] text-[#0067b8] hover:text-white font-semibold text-xs rounded-sm transition-colors cursor-pointer"
                     title="Inspeksi Model 3D Interaktif"
                   >
-                    <span>🔍 3D Live</span>
+                    <span>3D Live</span>
                   </button>
                 ` : ''}
-                <button
-                  type="button"
-                  onclick="openPortfolioModal('${p.id}')"
-                  class="px-3 py-1 rounded-lg bg-slate-100 hover:bg-brandBlue hover:text-white text-slate-700 font-semibold text-xs transition-colors cursor-pointer"
-                >
-                  Detail &rarr;
-                </button>
               </div>
             </div>
           </div>
@@ -3936,10 +4241,10 @@
 
     function filterPortfolio(category, btn) {
       document.querySelectorAll('.portfolio-filter-btn').forEach(b => {
-        b.className = 'portfolio-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer';
+        b.className = 'portfolio-filter-btn px-3 py-1.5 bg-white border border-[#8a8a8a] hover:bg-[#f2f2f2] text-[#262626] font-medium cursor-pointer';
       });
       if (btn) {
-        btn.className = 'portfolio-filter-btn px-3 py-1.5 rounded-lg font-bold bg-brandBlue text-white shadow-xs cursor-pointer';
+        btn.className = 'portfolio-filter-btn px-3 py-1.5 font-semibold bg-[#0067b8] text-white cursor-pointer';
       }
       renderPortfolio(category);
     }
@@ -4616,12 +4921,12 @@
 
     // --- 17. BULLETPROOF PAGE INITIALIZATION ---
     function initApp() {
-      initArticles();
-      initComments();
-      initPortfolios();
-      updateGlobalViewsCounter();
-      updateAdminUI();
-      initStudio3D();
+      try { initArticles(); } catch (e) { console.warn('initArticles error', e); }
+      try { initComments(); } catch (e) { console.warn('initComments error', e); }
+      try { initPortfolios(); } catch (e) { console.warn('initPortfolios error', e); }
+      try { updateGlobalViewsCounter(); } catch (e) {}
+      try { updateAdminUI(); } catch (e) {}
+      try { initStudio3D(); } catch (e) { console.warn('initStudio3D caught', e); }
 
       // Direct event listeners for navigation tabs
       const tabIds = ['hy-arez', 'desain-industri', 'additive-manufacturing', 'portofolio'];
@@ -4637,18 +4942,22 @@
 
       // Handle URL Hash
       function handleHash() {
-        const hash = window.location.hash;
-        if (hash && hash.startsWith('#post-')) {
-          const pId = hash.replace('#post-', '');
-          showPost(pId);
-        } else if (hash === '#desain-industri') {
-          switchTab('desain-industri');
-        } else if (hash === '#additive-manufacturing') {
-          switchTab('additive-manufacturing');
-        } else if (hash === '#portofolio') {
-          switchTab('portofolio');
-        } else {
-          switchTab('hy-arez');
+        try {
+          const hash = window.location.hash;
+          if (hash && hash.startsWith('#post-')) {
+            const pId = hash.replace('#post-', '');
+            showPost(pId);
+          } else if (hash === '#desain-industri') {
+            switchTab('desain-industri');
+          } else if (hash === '#additive-manufacturing') {
+            switchTab('additive-manufacturing');
+          } else if (hash === '#portofolio') {
+            switchTab('portofolio');
+          } else {
+            switchTab('hy-arez');
+          }
+        } catch (err) {
+          console.warn('handleHash error caught', err);
         }
       }
 
